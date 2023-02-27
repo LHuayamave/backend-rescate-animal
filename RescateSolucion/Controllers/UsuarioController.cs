@@ -57,11 +57,11 @@ namespace RescateSolucion.Controllers
         }
         [Route("[action]")]
         [HttpPost]
-        public async Task<ActionResult<RespuestaSP>> SetUsuario([FromBody] usuario usuarios)
+        public async Task<ActionResult<RespuestaSP>> SetUsuario([FromBody] usuario usuario)
         {
             var cadenaConexion = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["conexion_bd"];
-            XDocument xmlParam = DBXmlMethods.GetXml(usuarios);
-            DataSet dsResultado = await DBXmlMethods.EjecutaBase(NameStoredProcedure.SPSetUsuarios, cadenaConexion, "", xmlParam.ToString());
+            XDocument xmlParam = DBXmlMethods.GetXml(usuario);
+            DataSet dsResultado = await DBXmlMethods.EjecutaBase(NameStoredProcedure.SPSetUsuario, cadenaConexion, "INSERTAR_USUARIO", xmlParam.ToString());
             RespuestaSP objResponse = new RespuestaSP();
             if(dsResultado.Tables.Count > 0)
             {
@@ -72,6 +72,7 @@ namespace RescateSolucion.Controllers
                 }
                 catch (Exception e)
                 {
+                    Console.Write(e.Message);
                     objResponse.Respuesta = "ERROR";
                     objResponse.Leyenda = "No se ha obtenido resultados de la transaccion";
                     return BadRequest(objResponse);
