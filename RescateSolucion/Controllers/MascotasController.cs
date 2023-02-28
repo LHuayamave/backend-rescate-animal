@@ -12,14 +12,15 @@ namespace RescateSolucion.Controllers
     [ApiController]
     public class MascotasController : Controller
     {
-        // POST api/<MascotasController>
+      
         [Route("[action]")]
-        [HttpPost]
-        public async Task<ActionResult<mascotas>> GetMascotas([FromBody] mascotas mascotas)
+        [HttpGet]
+        public async Task<ActionResult<mascotas>> GetMascotas()
         {
             var cadenaConexion = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["conexion_bd"];
-            XDocument xmlParam = DBXmlMethods.GetXml(mascotas);
-            DataSet dsResultado = await DBXmlMethods.EjecutaBase(NameStoredProcedure.SPGetMascotas, cadenaConexion, mascotas.Transaccion, xmlParam.ToString());
+            XDocument xmlParam = XDocument.Parse("<mascotas></mascotas>");
+            Console.Write(NameStoredProcedure.SPGetMascotas + "\n\n" + cadenaConexion + "\n\n" + xmlParam.ToString());
+            DataSet dsResultado = await DBXmlMethods.EjecutaBase(NameStoredProcedure.SPGetMascotas, cadenaConexion, "CONSULTA_MASCOTAS", xmlParam.ToString());
             List<mascotas> listData = new List<mascotas>();
             if (dsResultado.Tables.Count > 0)
             {
@@ -33,23 +34,19 @@ namespace RescateSolucion.Controllers
                             nombre = row["nombre"].ToString(),
                             tipo_mascota = new tipo_mascota()
                             {
-                                id_tipo_mascota = Convert.ToInt32(row["id_tipo_mascota"]),
-                                descripcion = row["tipoMascota"].ToString(),
+                                descripcion = row["tipoMascota"].ToString()
                             },
                             estado_salud = new estado_salud()
                             {
-                                id_estado_salud = Convert.ToInt32(row["id_estado_salud"]),
-                                descripcion = row["estadoSalud"].ToString(),
+                                descripcion = row["estadoSalud"].ToString()
                             },
                             estado_mascotas = new estado_mascotas()
                             {
-                                id_estado_mascotas = Convert.ToInt32(row["id_estado_mascotas"]),
-                                descripcion = row["estadoMascota"].ToString(),
+                                descripcion = row["estadoMascota"].ToString()
                             },
                             sexo = new sexo()
                             {
-                                id_sexo = Convert.ToInt32(row["id_sexo"]),
-                                descripcion = row["sexo"].ToString(),
+                                descripcion = row["sexo"].ToString()
                             }
                         };
                         listData.Add(objResponse);
@@ -57,7 +54,7 @@ namespace RescateSolucion.Controllers
                 }
                 catch (Exception ex)
                 {
-                    Console.Write("error");
+                    Console.Write(ex.Message);
                 }
             }
             return Ok(listData);
@@ -69,7 +66,7 @@ namespace RescateSolucion.Controllers
         {
             var cadenaConexion = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["conexion_bd"];
             XDocument xmlParam = DBXmlMethods.GetXml(mascotas);
-            DataSet dsResultado = await DBXmlMethods.EjecutaBase(NameStoredProcedure.SPSetMascotas, cadenaConexion, mascotas.Transaccion, xmlParam.ToString());
+            DataSet dsResultado = await DBXmlMethods.EjecutaBase(NameStoredProcedure.SPSetMascotas, cadenaConexion, "INSERTAR_MASCOTA", xmlParam.ToString());
             RespuestaSP objResponse = new RespuestaSP();
             //List<Mascotas> listData = new List<Mascotas>();
             if (dsResultado.Tables.Count > 0)
@@ -92,4 +89,7 @@ namespace RescateSolucion.Controllers
         }
 
     }
+
+
+
 }

@@ -16,6 +16,6 @@
         public estado_salud? estado_salud { get; set; }
         public estado_mascotas? estado_mascotas { get; set; }
         public sexo? sexo { get; set; }
-        public string Transaccion { get; set; }
+        //public string Transaccion { get; set; }
     }
 }
