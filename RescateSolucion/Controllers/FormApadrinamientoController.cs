@@ -18,7 +18,7 @@ namespace RescateSolucion.Controllers
         {
             var cadenaConexion = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["conexion_bd"];
             XDocument xmlParam = XDocument.Parse("<form_apadrinamiento></form_apadrinamiento>");
-            Console.Write(NameStoredProcedure.SPGetUsuarios + "\n\n" + cadenaConexion + "\n\n" + xmlParam.ToString());
+            Console.Write(NameStoredProcedure.GetFormApadrinamiento + "\n\n" + cadenaConexion + "\n\n" + xmlParam.ToString());
             DataSet dsResultado = await DBXmlMethods.EjecutaBase(NameStoredProcedure.GetFormApadrinamiento, cadenaConexion, "CONSULTAR_FORMULARIO_APADRINAMIENTO", xmlParam.ToString());
             List<form_apadrinamiento> listData = new List<form_apadrinamiento>();
             if(dsResultado.Tables.Count > 0)
