@@ -55,6 +55,7 @@ namespace RescateSolucion.Controllers
             }
             return Ok(listData);
         }
+
         [Route("[action]")]
         [HttpPost]
         public async Task<ActionResult<RespuestaSP>> SetUsuario([FromBody] usuario usuario)
@@ -63,7 +64,7 @@ namespace RescateSolucion.Controllers
             XDocument xmlParam = DBXmlMethods.GetXml(usuario);
             DataSet dsResultado = await DBXmlMethods.EjecutaBase(NameStoredProcedure.SPSetUsuario, cadenaConexion, "INSERTAR_USUARIO", xmlParam.ToString());
             RespuestaSP objResponse = new RespuestaSP();
-            if(dsResultado.Tables.Count > 0)
+            if (dsResultado.Tables.Count > 0)
             {
                 try
                 {
