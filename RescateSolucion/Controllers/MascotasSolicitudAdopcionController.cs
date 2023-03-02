@@ -50,7 +50,7 @@ namespace RescateSolucion.Controllers
         {
             var cadenaConexion = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["conexion_bd"];
             XDocument xmlParam = DBXmlMethods.GetXml(form_adopt);
-            DataSet dsResultado = await DBXmlMethods.EjecutaBase(NameStoredProcedure.SPSetMascotas2, cadenaConexion, form_adopt.Transaccion, xmlParam.ToString());
+            DataSet dsResultado = await DBXmlMethods.EjecutaBase(NameStoredProcedure.SPSetMascotas2, cadenaConexion, "INGRESAR_SOLICITUD_ADOPCION", xmlParam.ToString());
             RespuestaSP objResponse = new RespuestaSP();
             //List<Mascotas> listData = new List<Mascotas>();
             if (dsResultado.Tables.Count > 0)

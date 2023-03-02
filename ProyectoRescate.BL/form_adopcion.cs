@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace ProyectoRescate.BL
 {
     public class form_adopcion
-    {
+    {/*
         public int id_form_adopcion { get; set; }
         public mascotas? mascotas { get; set; }
         public string? nombre { get; set; }
@@ -20,7 +20,19 @@ namespace ProyectoRescate.BL
         public string? razones_adopcion { get; set; }
         public instruccion? instruccion { get; set; }
         public compromiso? compromiso { get; set; }
-        public estado_adopcion? estado_adopcion { get; set; }
-        public string Transaccion { get; set; }
+        public estado_adopcion? estado_adopcion { get; set; }*/
+
+        public int id_form_adopcion { get; set; }
+        public int id_mascotas { get; set; }
+        public string? nombre { get; set; }
+        public string? apellido { get; set; }
+        public string? direccion { get; set; }
+        public DateTime fecha_nac { get; set; }
+        public string? celular { get; set; }
+        public string? correo { get; set; }
+        public string? razones_adopcion { get; set; }
+        public int id_instruccion { get; set; }
+        public int id_compromiso { get; set; }
+        public int id_estado_adopcion { get; set; }
     }
 }
