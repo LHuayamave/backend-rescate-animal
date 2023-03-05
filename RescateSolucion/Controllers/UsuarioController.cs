@@ -34,14 +34,14 @@ namespace RescateSolucion.Controllers
                             telefono = row["telefono"].ToString(),
                             edad = Convert.ToInt32(row["edad"]),
                             contrasenia = row["contrasenia"].ToString(),
+                            id_rol = Convert.ToInt32(row["id_rol"]),
+                            id_estado_usuario = Convert.ToInt32(row["id_estado_usuario"]),
                             rol = new rol()
                             {
-                                id_rol = Convert.ToInt32(row["id_rol"]),
                                 descripcion = row["descripcion"].ToString()
                             },
                             estado_usuario = new estado_usuario()
                             {
-                                id_estado_usuario = Convert.ToInt32(row["id_estado_usuario"]),
                                 descripcion = row["estDesc"].ToString()
                             }
                         };
@@ -79,14 +79,14 @@ namespace RescateSolucion.Controllers
                             telefono = row["telefono"].ToString(),
                             edad = Convert.ToInt32(row["edad"]),
                             contrasenia = row["contrasenia"].ToString(),
+                            id_rol = Convert.ToInt32(row["id_rol"]),
+                            id_estado_usuario = Convert.ToInt32(row["id_estado_usuario"]),
                             rol = new rol()
                             {
-                                id_rol = Convert.ToInt32(row["id_rol"]),
                                 descripcion = row["descripcion"].ToString()
                             },
                             estado_usuario = new estado_usuario()
                             {
-                                id_estado_usuario = Convert.ToInt32(row["id_estado_usuario"]),
                                 descripcion = row["estDesc"].ToString()
                             }
                         };
