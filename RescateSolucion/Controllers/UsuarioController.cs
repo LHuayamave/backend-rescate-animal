@@ -101,7 +101,7 @@ namespace RescateSolucion.Controllers
             return Ok(listData);
         }
 
-        [HttpGet("{cedula}, {contrasenia}")]
+        [HttpPost]
         public async Task<ActionResult<usuario>> loginUsuario(string cedula, string contrasenia)
         {
             var cadenaConexion = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["conexion_bd"];
