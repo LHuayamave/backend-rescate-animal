@@ -16,10 +16,10 @@ namespace RescateSolucion.Controllers
         {
             var cadenaConexion = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["conexion_bd"];
             XDocument xmlParam = XDocument.Parse("<usuario></usuario>");
-            Console.Write(NameStoredProcedure.SPGetUsuarios+"\n\n"+cadenaConexion+ "\n\n" + xmlParam.ToString());
+            Console.Write(NameStoredProcedure.SPGetUsuarios + "\n\n" + cadenaConexion + "\n\n" + xmlParam.ToString());
             DataSet dsResultado = await DBXmlMethods.EjecutaBase(NameStoredProcedure.SPGetUsuarios, cadenaConexion, "CONSULTAR_USUARIOS", xmlParam.ToString());
             List<usuario> listData = new List<usuario>();
-            if(dsResultado.Tables.Count> 0)
+            if (dsResultado.Tables.Count > 0)
             {
                 try
                 {
@@ -91,6 +91,36 @@ namespace RescateSolucion.Controllers
                             }
                         };
                         listData.Add(objResponse);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.Write(ex.Message);
+                }
+            }
+            return Ok(listData);
+        }
+
+        [HttpGet("{cedula}, {contrasenia}")]
+        public async Task<ActionResult<usuario>> loginUsuario(string cedula, string contrasenia)
+        {
+            var cadenaConexion = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["conexion_bd"];
+            XDocument xmlParam = XDocument.Parse("<usuario><cedula>" + cedula + "</cedula><contrasenia>"+contrasenia+"</contrasenia></usuario>");
+            Console.Write(NameStoredProcedure.SPLoginUsuario + "\n\n" + cadenaConexion + "\n\n" + xmlParam.ToString());
+            DataSet dsResultado = await DBXmlMethods.EjecutaBase(NameStoredProcedure.SPLoginUsuario, cadenaConexion, "LOGIN_USUARIO", xmlParam.ToString());
+            List<usuario> listData = new List<usuario>();
+            if (dsResultado.Tables.Count > 0)
+            {
+                try
+                {
+                    foreach (DataRow row in dsResultado.Tables[0].Rows)
+                    {
+                        usuario objResponse = new usuario
+                        {
+                            nombre = row["nombre"].ToString(),
+                            apellido = row["apellido"].ToString(),
+                        };
+                         listData.Add(objResponse);
                     }
                 }
                 catch (Exception ex)
