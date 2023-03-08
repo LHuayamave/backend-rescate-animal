@@ -10,5 +10,7 @@
         public const string GetFormApadrinamiento = "GetFormApadrinamiento";
         public const string SPLoginUsuario = "LoginUsuario";
         public const string SPSetFormHogarTemporal = "SetHogarTemporal";
+        public const string SPSetRescateAnimal = "SetRecateAnimal";
+
     }
 }
