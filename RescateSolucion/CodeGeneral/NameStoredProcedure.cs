@@ -9,5 +9,6 @@
         public const string SPSetUsuario = "SetUsuario";
         public const string GetFormApadrinamiento = "GetFormApadrinamiento";
         public const string SPLoginUsuario = "LoginUsuario";
+        public const string SPSetFormHogarTemporal = "SetHogarTemporal";
     }
 }
