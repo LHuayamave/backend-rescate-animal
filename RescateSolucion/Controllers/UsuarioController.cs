@@ -9,7 +9,53 @@ namespace RescateSolucion.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class UsuarioController : ControllerBase
-    {
+    {        
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<ActionResult<usuario>> GetUsuarioCedula([FromBody] usuario usuario)
+        {
+            var cadenaConexion = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["conexion_bd"];
+            XDocument xmlParam = DBXmlMethods.GetXml(usuario);
+            DataSet dsResultado = await DBXmlMethods.EjecutaBase(NameStoredProcedure.SPGetUsuarios, cadenaConexion, "CONSULTA_USUARIO_CEDULA", xmlParam.ToString());
+            List<usuario> listData = new List<usuario>();
+            //RespuestaSP objResponse = new RespuestaSP();
+            if (dsResultado.Tables.Count > 0)
+            {
+                try
+                {
+                    foreach (DataRow row in dsResultado.Tables[0].Rows)
+                    {
+                        usuario objResponse = new usuario
+                        {
+                            id_usuario = Convert.ToInt32(row["id_usuario"]),
+                            cedula = row["cedula"].ToString(),
+                            nombre = row["nombre"].ToString(),
+                            apellido = row["apellido"].ToString(),
+                            telefono = row["telefono"].ToString(),
+                            edad = Convert.ToInt32(row["edad"]),
+                            contrasenia = row["contrasenia"].ToString(),
+                            id_rol = Convert.ToInt32(row["id_rol"]),
+                            id_estado_usuario = Convert.ToInt32(row["id_estado_usuario"]),
+                            rol = new rol()
+                            {
+                                descripcion = row["descripcion"].ToString()
+                            },
+                            estado_usuario = new estado_usuario()
+                            {
+                                descripcion = row["estDesc"].ToString()
+                            }
+                        };
+                        listData.Add(objResponse);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.Write(ex.Message);
+                }
+            }
+            return Ok(listData);
+        }
+
         [Route("[action]")]
         [HttpGet]
         public async Task<ActionResult<usuario>> GetUsuarios()
@@ -56,6 +102,7 @@ namespace RescateSolucion.Controllers
             return Ok(listData);
         }
 
+        
         [HttpGet("{id}")]
         public async Task<ActionResult<usuario>> GetUsuarioId(int id)
         {
