@@ -4,77 +4,63 @@ using RescateSolucion.CodeGeneral;
 using System.Data;
 using System.Xml.Linq;
 
-
 namespace RescateSolucion.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class FormApadrinamientoController : ControllerBase
+    public class FormVoluntarioController : ControllerBase
     {
         [Route("[action]")]
         [HttpGet]
-
-        public async Task<ActionResult<form_apadrinamiento>> GetFormApadrinamiento()
+        public async Task<ActionResult<form_voluntario>> GetFormVoluntario()
         {
             var cadenaConexion = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["conexion_bd"];
-            XDocument xmlParam = XDocument.Parse("<form_apadrinamiento></form_apadrinamiento>");
-            Console.Write(NameStoredProcedure.GetFormApadrinamiento + "\n\n" + cadenaConexion + "\n\n" + xmlParam.ToString());
-            DataSet dsResultado = await DBXmlMethods.EjecutaBase(NameStoredProcedure.GetFormApadrinamiento, cadenaConexion, "CONSULTAR_FORMULARIO_APADRINAMIENTO", xmlParam.ToString());
-            List<form_apadrinamiento> listData = new List<form_apadrinamiento>();
+            XDocument xmlParam = XDocument.Parse("<form_voluntario></form_voluntario>");
+            Console.Write(NameStoredProcedure.SPSetFormVoluntario + "\n\n" + cadenaConexion + "\n\n" + xmlParam.ToString());
+            DataSet dsResultado = await DBXmlMethods.EjecutaBase(NameStoredProcedure.SPGetFormVoluntario, cadenaConexion, "CONSULTAR_FORM_VOLUNTARIO", xmlParam.ToString());
+            List<form_voluntario> listData = new List<form_voluntario>();
             if (dsResultado.Tables.Count > 0)
             {
                 try
                 {
                     foreach (DataRow row in dsResultado.Tables[0].Rows)
                     {
-                        form_apadrinamiento objResponse = new form_apadrinamiento
+                        form_voluntario objResponse = new form_voluntario
                         {
-
-                            id_form_apadrinamiento = Convert.ToInt32(row["id_form_apadrinamiento"]),
-                            id_mascotas = Convert.ToInt32(row["id_mascotas"]),
-                            mascotas = new mascotas()
-                            {
-                                nombre = row["nombre"].ToString()
-                            },
+                            id_form_voluntario = Convert.ToInt32(row["id_form_voluntarios"]),
                             nombre = row["nombre"].ToString(),
                             apellido = row["apellido"].ToString(),
                             fecha_nac = Convert.ToDateTime(row["fecha_nac"]),
+                            edad = Convert.ToInt32(row["edad"]),
                             ciudad = row["ciudad"].ToString(),
+                            ocupacion = row["ocupacion"].ToString(),
                             correo = row["correo"].ToString(),
-                            num_cuenta = row["num_cuenta"].ToString(),
-                            titular_cuenta = row["titular_cuenta"].ToString(),
-                            cant_colaboracion = Convert.ToInt32(row["cant_colaboracion"]),
-                            id_periodicidad = Convert.ToInt32(row["id_periodicidad"]),
-                            id_estado_apadrinamiento = Convert.ToInt32(row["id_estado_apadrinamiento"]),
+                            direccion = row["direccion"].ToString(),
+                            razones_voluntario = row["razones_voluntario"].ToString(),
+                            id_estado_voluntario = Convert.ToInt32(row["id_estado_voluntario"]),
 
-                            periodicidad = new periodicidad()
+                            estado_Voluntario = new estado_voluntario()
                             {
-                                descripcion = row["Periodicidad"].ToString()
-                            },
-                            estado_Apadrinamiento = new estado_apadrinamiento()
-                            {
-                                descripcion = row["Estado del Formulario"].ToString()
+                                descripcion = row["descripcion"].ToString()
                             }
                         };
                         listData.Add(objResponse);
                     }
                 }
-                catch (Exception ex)
+                catch (Exception e)
                 {
-                    Console.Write(ex.Message);
+                    Console.Write(e.Message);
                 }
             }
             return Ok(listData);
         }
-
         [Route("[action]")]
         [HttpPost]
-
-        public async Task<ActionResult<RespuestaSP>> SetFormApadrinamiento([FromBody] form_apadrinamiento form_Apadrinamiento)
+        public async Task<ActionResult<RespuestaSP>> SetFormVoluntario([FromBody] form_voluntario form_Voluntario)
         {
             var cadenaConexion = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["conexion_bd"];
-            XDocument xmlParam = DBXmlMethods.GetXml(form_Apadrinamiento);
-            DataSet dsResultado = await DBXmlMethods.EjecutaBase(NameStoredProcedure.SetFormApadrinamiento, cadenaConexion, "INSERTAR_FORM_APADRINAMIENTO", xmlParam.ToString());
+            XDocument xmlParam = DBXmlMethods.GetXml(form_Voluntario);
+            DataSet dsResultado = await DBXmlMethods.EjecutaBase(NameStoredProcedure.SPSetFormVoluntario, cadenaConexion, "INSERTAR_FORM_VOLUNTARIO", xmlParam.ToString());
             RespuestaSP objResponse = new RespuestaSP();
             if (dsResultado.Tables.Count > 0)
             {
@@ -95,13 +81,12 @@ namespace RescateSolucion.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<RespuestaSP>> PutFormApadrinamiento(int id, [FromBody] form_apadrinamiento form_Apadrinamiento)
+        public async Task<ActionResult<RespuestaSP>> PutFormVoluntario(int id, [FromBody] form_voluntario form_Voluntario)
         {
-
             var cadenaConexion = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["conexion_bd"];
-            form_Apadrinamiento.id_form_apadrinamiento = id;
-            XDocument xmlParam = DBXmlMethods.GetXml(form_Apadrinamiento);
-            DataSet dsResultado = await DBXmlMethods.EjecutaBase(NameStoredProcedure.SetFormApadrinamiento, cadenaConexion, "MODIFICAR_ESTADO_FORM_APADRINAMIENTO", xmlParam.ToString());
+            form_Voluntario.id_form_voluntario = id;
+            XDocument xmlParam = DBXmlMethods.GetXml(form_Voluntario);
+            DataSet dsResultado = await DBXmlMethods.EjecutaBase(NameStoredProcedure.SPSetFormVoluntario, cadenaConexion, "MODIFICAR_ESTADO_FORM_VOLUNTARIO", xmlParam.ToString());
             RespuestaSP objResponse = new RespuestaSP();
             if (dsResultado.Tables.Count > 0)
             {
