@@ -3,6 +3,7 @@ using System.Data.SqlClient;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using System.Xml;
+using System.Runtime.CompilerServices;
 
 namespace RescateSolucion.CodeGeneral
 {
@@ -57,5 +58,6 @@ namespace RescateSolucion.CodeGeneral
             }
             return dsResultado;
         }
+
     }
 }

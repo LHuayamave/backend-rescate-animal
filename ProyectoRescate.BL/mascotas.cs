@@ -1,4 +1,8 @@
-﻿namespace ProyectoRescate.BL
+﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using System.Buffers.Text;
+using System.Runtime.CompilerServices;
+
+namespace ProyectoRescate.BL
 {
     public class mascotas
     {/*
@@ -24,9 +28,12 @@
         public int id_estado_salud { get; set; }
         public int id_estado_mascotas { get; set; }
         public int id_sexo { get; set; }
+        //public byte[] foto { get; set; }
+        public string? foto { get; set; }
         public tipo_mascota? tipo_mascota { get; set; }
         public estado_salud? estado_salud { get; set; }
         public estado_mascotas? estado_mascotas { get; set; }
         public sexo? sexo { get; set; }
+        
     }
 }

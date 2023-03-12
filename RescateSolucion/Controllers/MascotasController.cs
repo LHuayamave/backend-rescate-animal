@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProyectoRescate.BL;
 using RescateSolucion.CodeGeneral;
+using System.Buffers.Text;
 using System.Data;
 using System.Xml.Linq;
 
@@ -20,7 +21,7 @@ namespace RescateSolucion.Controllers
             var cadenaConexion = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["conexion_bd"];
             XDocument xmlParam = XDocument.Parse("<mascotas></mascotas>");
             Console.Write(NameStoredProcedure.SPGetMascotas + "\n\n" + cadenaConexion + "\n\n" + xmlParam.ToString());
-            DataSet dsResultado = await DBXmlMethods.EjecutaBase(NameStoredProcedure.SPGetMascotas, cadenaConexion, "CONSULTA_MASCOTAS", xmlParam.ToString());
+            DataSet dsResultado = await DBXmlMethods.EjecutaBase(NameStoredProcedure.SPGetMascotas, cadenaConexion, "CONSULTA_MASCOTAS_FOTO", xmlParam.ToString());
             List<mascotas> listData = new List<mascotas>();
             if (dsResultado.Tables.Count > 0)
             {
@@ -36,6 +37,8 @@ namespace RescateSolucion.Controllers
                             id_estado_salud = Convert.ToInt32(row["id_estado_salud"]),
                             id_estado_mascotas = Convert.ToInt32(row["id_estado_mascotas"]),
                             id_sexo = Convert.ToInt32(row["id_sexo"]),
+                            foto = row["foto"].ToString(),
+                            //foto = (byte[])row["foto"], //FOTO PRUEBA
                             tipo_mascota = new tipo_mascota()
                             {
                                 descripcion = row["tipoMascota"].ToString()
@@ -166,6 +169,7 @@ namespace RescateSolucion.Controllers
             }
             return Ok(objResponse);
         }
+
 
     }
 
