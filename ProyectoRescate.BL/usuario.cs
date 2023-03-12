@@ -9,6 +9,8 @@
         public string? telefono { get; set; }
         public int edad { get; set; }
         public string? contrasenia { get; set; }
+        public int id_rol { get; set; }
+        public int id_estado_usuario { get; set; }
         public rol? rol { get; set; }
         public estado_usuario? estado_usuario { get; set; }
     }
