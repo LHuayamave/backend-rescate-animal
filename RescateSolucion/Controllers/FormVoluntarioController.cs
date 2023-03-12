@@ -4,6 +4,7 @@ using RescateSolucion.CodeGeneral;
 using System.Data;
 using System.Xml.Linq;
 
+
 namespace RescateSolucion.Controllers
 {
     [Route("api/[controller]")]
@@ -30,7 +31,7 @@ namespace RescateSolucion.Controllers
                             id_form_voluntario = Convert.ToInt32(row["id_form_voluntarios"]),
                             nombre = row["nombre"].ToString(),
                             apellido = row["apellido"].ToString(),
-                            fecha_nac = Convert.ToDateTime(row["fecha_nac"]),
+                            fecha_nac = Convert.ToDateTime(row["fecha_nac"]).ToString("dd-MM-yyyy"),
                             edad = Convert.ToInt32(row["edad"]),
                             ciudad = row["ciudad"].ToString(),
                             ocupacion = row["ocupacion"].ToString(),

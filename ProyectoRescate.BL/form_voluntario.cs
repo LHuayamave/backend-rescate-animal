@@ -5,7 +5,7 @@
         public int id_form_voluntario { get; set; }
         public string? nombre { get; set; }
         public string? apellido { get; set; }
-        public DateTime fecha_nac { get; set; }
+        public string? fecha_nac { get; set; }
         public int edad { get; set; }
         public string? ciudad { get; set; }
         public string? ocupacion { get; set; }
