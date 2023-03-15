@@ -27,12 +27,16 @@ namespace ProyectoRescate.BL
         public string? nombre { get; set; }
         public string? apellido { get; set; }
         public string? direccion { get; set; }
-        public DateTime fecha_nac { get; set; }
+        public string? fecha_nac { get; set; }
         public string? celular { get; set; }
         public string? correo { get; set; }
         public string? razones_adopcion { get; set; }
         public int id_instruccion { get; set; }
         public int id_compromiso { get; set; }
         public int id_estado_adopcion { get; set; }
+        public mascotas? mascotas { get; set; }
+        public instruccion? instruccion { get; set; }
+        public compromiso? compromiso { get; set; }
+        public estado_adopcion? estado_Adopcion { get; set; }
     }
 }

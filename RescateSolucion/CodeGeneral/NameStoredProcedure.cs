@@ -4,6 +4,7 @@
     {
         public const string SPGetMascotas = "GetMascotas";
         public const string SPSetMascotas = "SetMascotas";
+        public const string SPGetFormAdopcion = "GetAdoptarMascotas";
         public const string SPSetMascotas2 = "SetAdoptarMascotas";
         public const string SPGetUsuarios = "GetUsuarios";
         public const string SPSetUsuario = "SetUsuario";
