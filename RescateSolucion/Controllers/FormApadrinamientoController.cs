@@ -34,11 +34,11 @@ namespace RescateSolucion.Controllers
                             id_mascotas = Convert.ToInt32(row["id_mascotas"]),
                             mascotas = new mascotas()
                             {
-                                nombre = row["nombre"].ToString()
+                                nombre = row["Nombre de la mascota"].ToString()
                             },
                             nombre = row["nombre"].ToString(),
                             apellido = row["apellido"].ToString(),
-                            fecha_nac = Convert.ToDateTime(row["fecha_nac"]),
+                            fecha_nac = Convert.ToDateTime(row["fecha_nac"]).ToString("dd-MM-yyyy"),
                             ciudad = row["ciudad"].ToString(),
                             correo = row["correo"].ToString(),
                             num_cuenta = row["num_cuenta"].ToString(),

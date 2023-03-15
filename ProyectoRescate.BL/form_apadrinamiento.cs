@@ -13,7 +13,7 @@ namespace ProyectoRescate.BL
         public int id_mascotas { get; set; }
         public string? nombre { get; set; }
         public string? apellido { get; set; }
-        public DateTime fecha_nac { get; set; }
+        public string? fecha_nac { get; set; }
         public string? ciudad { get; set; }
         public string? correo { get; set; }
         public string? num_cuenta { get; set; }
